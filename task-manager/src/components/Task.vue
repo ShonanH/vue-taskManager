@@ -31,7 +31,7 @@ export default {
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 10px;
-  height: 90px;
+  height: 80px;
 }
 .task.reminder {
   border-left: 5px solid green;

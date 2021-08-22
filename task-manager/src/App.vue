@@ -5,80 +5,32 @@
       title="Task Manager"
       :closeTaskButton="showAddTask"
     />
-    <div v-if="showAddTask">
-      <AddTask @add-task="addTask" />
-    </div>
-    <Tasks
-      @toggle-reminder="toggleReminder"
-      @delete-task="deleteTask"
-      :tasks="tasks"
-    />
+
+    <router-view :showAddTask="showAddTask"></router-view>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header";
-import Tasks from "./components/Tasks";
-import AddTask from "./components/AddTask";
+import Footer from "./components/Footer";
 
 export default {
   name: "App",
-  components: { Header, Tasks, AddTask },
+  components: { Header, Footer },
   data() {
     return {
-      tasks: [],
       showAddTask: false,
     };
   },
   methods: {
-    addTask(task) {
-      this.tasks = [...this.tasks, task];
-    },
-    deleteTask(id) {
-      // console.log("task", id);
-      if (confirm("Are you sure?")) {
-        this.tasks = this.tasks.filter((task) => task.id !== id);
-      }
-    },
-
-    toggleReminder(id) {
-      this.tasks = this.tasks.map((t) =>
-        t.id === id ? { ...t, reminder: !t.reminder } : t
-      );
-    },
-
     toggleTaskForm() {
       this.showAddTask = !this.showAddTask;
     },
   },
   //   Lifecycle Method
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: "Some Appt",
-        day: "March 1st at 2:30pm",
-        reminder: false,
-      },
-      {
-        id: 2,
-        text: "Food Shopping",
-        day: "March 2nd at 2:30pm",
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: "Make API Vue App",
-        day: "August 22nd",
-        reminder: true,
-      },
-      {
-        id: 4,
-        text: "Gym",
-        day: "August 22nd",
-        reminder: true,
-      },
-    ];
+  async created() {
+    this.tasks = await this.fetchTasks();
   },
 };
 </script>

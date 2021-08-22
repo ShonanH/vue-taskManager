@@ -41,7 +41,7 @@ export default {
       }
 
       const newTask = {
-        id: Math.floor(Math.random() * 100000),
+        // id: Math.floor(Math.random() * 100000),
         text: this.text,
         day: this.day,
         reminder: this.reminder,
@@ -63,9 +63,11 @@ export default {
   border-radius: 10px;
   color: rgb(105, 233, 31);
   background-color: rgb(7, 6, 6);
+  height: 380px;
+  padding: 10px;
 }
 .form-control {
-  margin: 20px 0;
+  margin: 30px 0;
 }
 .form-control label {
   display: block;
